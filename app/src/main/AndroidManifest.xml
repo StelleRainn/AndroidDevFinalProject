@@ -30,5 +30,6 @@
         <activity android:name=".ReadBookActivity" />
         <activity android:name=".CommentActivity" />
         <activity android:name=".EditBookActivity" />
+        <activity android:name=".LibraryActivity" />
     </application>
 </manifest>

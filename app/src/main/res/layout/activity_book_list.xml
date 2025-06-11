@@ -1,93 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeRefreshLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".BookListActivity">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        tools:context=".BookListActivity">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/welcomeTextView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp">
+            android:layout_weight="1"
+            android:text="Welcome: 用户"
+            android:textSize="16sp"
+            android:gravity="start|center_vertical" />
 
-            <TextView
-                android:id="@+id/welcomeTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Welcome: 用户"
-                android:textSize="16sp"
-                android:gravity="start|center_vertical" />
-
-            <Button
-                android:id="@+id/switchAccountButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="切换账号"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@+id/searchEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="搜索图书" />
-
-        <ImageView
-            android:id="@+id/clearSearchButton"
+        <Button
+            android:id="@+id/switchAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_clear"
-            android:visibility="gone"
-            android:layout_gravity="end" />
-
-        <Button
-            android:id="@+id/searchButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="搜索" />
-
-        <Button
-            android:id="@+id/uploadBookButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="上传图书" />
-
-        <Button
-            android:id="@+id/myBooksButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="我发布的图书"
-            android:layout_marginTop="8dp" />
-
-        <Button
-            android:id="@+id/orderButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="已购买图书" />
-
-        <Button
-            android:id="@+id/salesRecordButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="查看出售记录"
-            android:layout_marginTop="8dp" />
-
-        <ListView
-            android:id="@+id/bookListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:text="切换账号"
+            android:textSize="14sp" />
 
     </LinearLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <Button
+        android:id="@+id/libraryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="图书馆"
+        android:layout_marginBottom="8dp" />
+
+    <Button
+        android:id="@+id/uploadBookButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传图书" />
+
+    <Button
+        android:id="@+id/myBooksButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我发布的图书"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/orderButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已购买图书" />
+
+    <Button
+        android:id="@+id/salesRecordButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查看出售记录"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
