@@ -1,9 +1,8 @@
 package com.example.myreader;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ public class MyPublishedBooksActivity extends AppCompatActivity {
     private MyPublishedBooksAdapter adapter;
     private String username;
     private SwipeRefreshLayout swipeRefreshLayout;
-
     private List<Book> myPublishedBooks;
 
     @Override
@@ -26,40 +24,39 @@ public class MyPublishedBooksActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_published_books);
 
         username = getIntent().getStringExtra("username");
-        swipeRefreshLayout=findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         myPublishedBooksListView = findViewById(R.id.myPublishedBooksListView);
 
-        loadBooks();//初始加载数据
+        loadBooks();
 
-//        设置下拉刷新
-        swipeRefreshLayout.setOnRefreshListener(()->{
-            //重新加数据
-            loadBooks();
+        // 添加滚动监听，控制下拉刷新
+        myPublishedBooksListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                boolean enable = firstVisibleItem == 0 && view.getChildAt(0) != null && view.getChildAt(0).getTop() == 0;
+                swipeRefreshLayout.setEnabled(enable);
+            }
         });
 
-//        // 获取用户发布的书籍
-//        List<Book> myPublishedBooks = DatabaseHelper.getInstance(getApplicationContext())
-//                .getMyPublishedBooks(username);
-//
-//        // 设置适配器
-//        adapter = new MyPublishedBooksAdapter(this, myPublishedBooks, username);
-//        myPublishedBooksListView.setAdapter(adapter);
-
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            loadBooks();
+        });
     }
 
-    private void loadBooks(){
-        myPublishedBooks=DatabaseHelper.getInstance(getApplicationContext())
-                .getMyPublishedBooks(username);
-        if(adapter==null){
-            adapter=new MyPublishedBooksAdapter(this,myPublishedBooks,username);
+    private void loadBooks() {
+        myPublishedBooks = DatabaseHelper.getInstance(getApplicationContext()).getMyPublishedBooks(username);
+        if (adapter == null) {
+            adapter = new MyPublishedBooksAdapter(this, myPublishedBooks, username);
             myPublishedBooksListView.setAdapter(adapter);
-        }
-        else {
+        } else {
             adapter.clear();
             adapter.addAll(myPublishedBooks);
             adapter.notifyDataSetChanged();
         }
         Toast.makeText(MyPublishedBooksActivity.this, "已刷新书籍列表", Toast.LENGTH_SHORT).show();
-        swipeRefreshLayout.setRefreshing(false);//结束刷新数据
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

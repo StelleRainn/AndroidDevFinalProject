@@ -2,6 +2,7 @@ package com.example.myreader;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,18 @@ public class SalesRecordActivity extends AppCompatActivity {
         salesRecordListView.setEmptyView(emptyView);
 
         loadSalesRecords();
+
+        // 添加滚动监听，控制下拉刷新
+        salesRecordListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                boolean enable = firstVisibleItem == 0 && view.getChildAt(0) != null && view.getChildAt(0).getTop() == 0;
+                swipeRefreshLayout.setEnabled(enable);
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(() -> {
             loadSalesRecords();
